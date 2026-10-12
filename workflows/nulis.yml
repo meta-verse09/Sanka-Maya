@@ -1,0 +1,2 @@
+      - name: Tulis Artikel dengan AI Gratis
+        run: python bot.py "${{ github.event.inputs.judul }}" "${{ github.event.inputs.kategori }}"
