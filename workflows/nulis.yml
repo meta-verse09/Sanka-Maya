@@ -1,2 +1,5 @@
+
       - name: Tulis Artikel dengan AI Gratis
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python bot.py "${{ github.event.inputs.judul }}" "${{ github.event.inputs.kategori }}"
