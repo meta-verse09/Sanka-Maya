@@ -1,36 +1,19 @@
 
 name: Sanka Maya AI Writer
-on:
-  workflow_dispatch:
-    inputs:
-      judul:
-        description: 'Judul artikel'
-        required: true
-        default: 'Arti Angka 11:11'
-      kategori:
-        description: 'Kategori'
-        required: false
-        default: 'numerologi'
+on: workflow_dispatch
 jobs:
   nulis:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    permissions: {contents: write}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+        with: {python-version: '3.10'}
       - run: pip install requests
-      - name: Tulis
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python bot.py "${{ inputs.judul }}" "${{ inputs.kategori }}"
-      - name: Push
-        run: |
+      - run: python bot.py "Arti Angka 11:11"
+      - run: |
           git config user.name "bot"
           git config user.email "bot@bot.com"
-          mkdir -p artikel
           git add artikel/
-          git diff --staged --quiet || git commit -m "artikel ${{ inputs.judul }}"
+          git diff --staged --quiet || git commit -m "artikel baru"
           git push
