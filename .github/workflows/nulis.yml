@@ -1,0 +1,32 @@
+name: Sanka Maya AI Writer
+
+on:
+  workflow_dispatch:
+    inputs:
+      judul:
+        description: 'Judul artikel'
+        required: true
+        default: 'Arti Angka Kembar 11:11 Menurut Numerologi'
+      kategori:
+        description: 'Kategori'
+        required: false
+        default: 'numerologi'
+
+jobs:
+  nulis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install requests
+      - env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python bot.py "${{ 【entity-github¦canonical_name=Github】.event.inputs.judul }}" "${{ 【entity-github¦canonical_name=Github】.event.inputs.kategori }}"
+      - run: |
+          git config user.name "sanka-maya-bot"
+          git config user.email "bot@sanka-maya.blogspot.com"
+          git add artikel/
+          git diff --staged --quiet || git commit -m "artikel: ${{ github.event.inputs.judul }}"
+          git push
